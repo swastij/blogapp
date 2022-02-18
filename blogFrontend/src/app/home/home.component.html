@@ -1,8 +1,8 @@
-<div>
-    <div class="card-container" *ngFor="let card of cards">
+<div class="card-container">
+    <div *ngFor="let card of cards">
         <div>
             <app-blog-card [title]="card.attributes['title']" [body]="card.attributes['body']"
-                [imageUrl]="card.attributes.image.data.attributes.formats.thumbnail['url']"></app-blog-card>
+                [imageUrl]="card.attributes.image.data.attributes.formats.medium['url']"></app-blog-card>
         </div>
     </div>
 </div>

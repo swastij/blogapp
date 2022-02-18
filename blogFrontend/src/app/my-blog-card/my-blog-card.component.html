@@ -1,22 +1,30 @@
 <div class="card">
     <div class="container">
-        <div>
-            <img src="http://localhost:1337{{imageUrl}}" >
+        <div class="img-container">
+            <img class="img" src="http://localhost:1337{{imageUrl}}">
         </div>
-        <div>
-            <h4><b>{{title}}</b></h4>
-        </div>
-        <div>
-            <p>{{body}}</p>
-        </div>
-        <div class="btn">
-            <button (click)="handleDelete()">Delete</button>
-        </div>
-        <div class="btn">
-            <button (click)="handleChangePublish()">Change publish status</button>
-        </div>
-        <div class="btn">
-            <button (click)="handleEdit()">Edit</button>
+        <div class="body-container">
+            <div>
+                <p>Created at : {{createdAt}}</p>
+            </div>
+            <div>Author: {{author}}</div>
+            <div>
+                <h4><b>{{title}}</b></h4>
+            </div>
+            <div>
+                <p>{{body}}</p>
+            </div>
+            <div class="btn">
+                <button (click)="handleDelete()">Delete</button>
+            </div>
+            <div class="btn">
+                <button (click)="handleChangePublish()"
+                    [ngStyle]="{'backgroundColor': isPublished?'red':'green'}">{{isPublished ? 'Unpublish' :
+                    'Publish'}}</button>
+            </div>
+            <div class="btn">
+                <button (click)="handleEdit()">Edit</button>
+            </div>
         </div>
     </div>
 </div>

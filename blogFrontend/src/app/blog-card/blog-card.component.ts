@@ -9,6 +9,8 @@ export class BlogCardComponent implements OnInit {
   @Input() title: string='title';
   @Input() body: string='body';
   @Input() imageUrl: string='';
+  @Input() author: string='';
+  @Input() createdAt: string='';
   constructor() { }
 
   ngOnInit(): void {

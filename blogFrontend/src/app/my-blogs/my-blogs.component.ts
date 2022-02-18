@@ -12,21 +12,28 @@ export class MyBlogsComponent implements OnInit {
     attributes: {
       title: "test",
       body: "testing",
-      createdAt: "2022-02-17T07:14:04.756Z",
-      updatedAt: "2022-02-17T13:08:51.254Z",
-      publishedAt: "2022-02-17T07:16:13.428Z",
+      createdAt: '',
       isPublished: true,
       image: {
         data: {
           id: 1,
           attributes: {
             formats: {
-              thumbnail: {
+              medium: {
                 url: "http://localhost:1337/uploads/thumbnail_Screenshot_from_2022_02_16_19_39_50_f36434e20d.png"
               }
             }
           }
         }
+      },
+      author:{
+        data:[
+          {
+            attributes:{
+              username: ''
+            }
+          }
+        ]
       }
     }
   }]

@@ -1,14 +1,20 @@
 <div class="card">
     <div class="container">
-        
-        <div>
-            <img src="http://localhost:1337{{imageUrl}}" >
+
+        <div class="img-container">
+            <img class="img" src="http://localhost:1337{{imageUrl}}">
         </div>
-        <div>
-            <h4><b>{{title}}</b></h4>
-        </div>
-        <div>
-            <p>{{body}}</p>
+        <div class="body-container">
+            <div>
+                <p>Created at : {{createdAt}}</p>
+            </div>
+            <div>Author: {{author}}</div>
+            <div>
+                <h4><b>{{title}}</b></h4>
+            </div>
+            <div>
+                <p>{{body}}</p>
+            </div>
         </div>
     </div>
 </div>

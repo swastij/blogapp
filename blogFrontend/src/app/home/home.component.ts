@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
           id: 1,
           attributes: {
             formats: {
-              thumbnail: {
+              medium: {
                 url: "http://localhost:1337/uploads/thumbnail_Screenshot_from_2022_02_16_19_39_50_f36434e20d.png"
               }
             }

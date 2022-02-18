@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlogCardComponent } from './blog-card/blog-card.component';
 import { CreateBlogComponent } from './create-blog/create-blog.component';
+import { EditBlogComponent } from './edit-blog/edit-blog.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MyBlogCardComponent } from './my-blog-card/my-blog-card.component';
@@ -16,7 +17,9 @@ const routes: Routes = [
   {path: 'blog-card', component: BlogCardComponent},
   {path:'myblogs', component: MyBlogsComponent},
   {path: 'create', component: CreateBlogComponent},
-  {path: '**', component: PageNotFoundComponent}
+  {path: 'editblog/', component: EditBlogComponent},
+  {path: 'editblog/:id', component: EditBlogComponent},
+  {path: '**', component: PageNotFoundComponent},
 ];
 
 @NgModule({

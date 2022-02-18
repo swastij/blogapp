@@ -40,6 +40,9 @@ export class BlogService {
   getAllPosts() {
     return this.http.get<any>('http://localhost:1337/api/posts?filters[isPublished][$eq]=true&populate=*', this.httpOptions);
   }
+  getPostById(id : number){
+    return this.http.get<any>(`http://localhost:1337/api/posts?filters[id][$eq]=${id}&populate=*`, this.httpOptions);
+  }
   getMyPosts() {
     let localStorageUser = localStorage.getItem('user');
     if (localStorageUser) {
@@ -117,5 +120,41 @@ export class BlogService {
       })
       .catch(error => console.log('error', error));
   }
+
+//edit
+editPost(body: any) {
+  console.log(body);
+  const createOptions = this.httpOptions;
+  createOptions.headers = createOptions.headers.set('Authorization', 'Bearer ' + this.parsedUser.jwt);
+  return this.http.put<any>(`http://localhost:1337/api/posts/${body.data.id}`, body, createOptions);
+}
+async editUploadImage(file: any, blog: any) {
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", 'Bearer '+this.parsedUser.jwt);
+
+  var formdata = new FormData();
+  formdata.append("files", file, file.name);
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: formdata,
+  };
+
+  fetch("http://localhost:1337/api/upload", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+      const postBody = blog;
+      postBody.image = result[0]?.id;
+      postBody.author = this.parsedUser.user.id;
+      this.editPost({
+        'data' : postBody
+      }).subscribe(res =>{
+         console.log('after post', res)
+         this.router.navigate(['/myblogs'])
+      })
+    })
+    .catch(error => console.log('error', error));
+}
 }
 
