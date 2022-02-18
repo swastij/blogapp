@@ -1,0 +1,8 @@
+<div>
+    <div class="card-container" *ngFor="let card of cards">
+        <div>
+        <app-my-blog-card [title]="card.attributes['title']" [body]="card.attributes['body']"
+        [imageUrl]="card.attributes.image.data.attributes.formats.thumbnail['url']" [id]="card.id" (delete)="handleDelete($event)"></app-my-blog-card>
+        </div>
+    </div>
+</div>

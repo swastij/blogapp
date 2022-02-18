@@ -1,0 +1,24 @@
+<div [formGroup]="formData" class="container">
+      <h1>Register</h1>
+      <br>
+      <p>Please fill in this form to create an account.</p>
+      <hr>
+  
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" formControlName="username" id="username" required>
+  
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" formControlName="email" id="email" required>
+  
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" formControlName="password" id="psw" required>
+      <hr>
+
+      <button class="registerbtn" (click)="handleRegister()">Register</button>
+    </div>
+    <div class="error">
+        <p >{{msg}}</p>
+    </div>
+    <div class="container signin">
+      <p>Already have an account? <a routerLink="/login">Sign in</a>.</p>
+</div>

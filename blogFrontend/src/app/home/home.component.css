@@ -1,0 +1,16 @@
+.nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(139, 100, 230);
+    height: 32px;
+}
+.nav>a{
+    text-decoration: none;
+}
+.card-container{
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,10 @@
+.nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(139, 100, 230);
+    height: 32px;
+}
+.nav>a{
+    text-decoration: none;
+}

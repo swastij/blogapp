@@ -1,0 +1,51 @@
+<div [formGroup]="blogData" class="container">
+    <h1>Create a blog!</h1>
+    <br>
+    <hr>
+
+    <label for="title"><b>Title</b></label>
+    <input type="text" placeholder="Enter title" formControlName="title" id="title" required>
+
+    <label for="body"><b>Content</b></label>
+    <input type="text" placeholder="body" formControlName="body" id="body" required>
+
+    <input type="radio" id="publish" formControlName="isPublished" value="true">
+        <label for="female">Publish</label>
+        <br/>
+        <input type="radio" id="notPublish" formControlName="isPublished" value="false">
+        <label for="male">Do not publish</label>
+          <br/>
+          <div
+          marginTop="16px"
+          maxW="50%"
+          flex="50%"
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <label [ngStyle]="{ 'height': '100%', 'maxWidth': '40px' }">
+            <input
+              (change)="handleFileChange($event)"
+              [ngStyle]="{ 'visibility': 'visible' }"
+              type="file"
+              accept="image/png, image/jpg, image/jpeg"
+            />
+          </label>
+          <img
+            [ngStyle]="{
+              'visibility': selectedFile ? 'visible' : 'hidden',
+              'height': '50px',
+              'width': '50px'
+            }"
+          >
+        </div>
+    <hr>
+
+    <button class="registerbtn" (click)="handleCreate()">Create</button>
+  </div>
+  <div class="error">
+      <p >{{msg}}</p>
+  </div>
+  <div class="container signin">
+     <a routerLink="/">Go to home</a>
+</div>
