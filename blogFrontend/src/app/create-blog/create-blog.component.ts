@@ -22,10 +22,6 @@ export class CreateBlogComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    // let a =localStorage.getItem('user');
-    // if(a){
-    // ('stored data', JSON.parse(a));
-    // }
   }
   handleCreate(){
     if(!this.blogData.valid){
@@ -39,6 +35,7 @@ export class CreateBlogComponent implements OnInit {
       body: this.blogData.controls['body'].value,
       isPublished: this.blogData.controls['isPublished'].value,
     }
+    console.log(this.file);
     this.blogService.uploadImage(this.file, blog);
     
   }

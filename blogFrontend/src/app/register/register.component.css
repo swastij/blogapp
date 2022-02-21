@@ -28,8 +28,8 @@ hr {
 
 /* Set a style for the submit/register button */
 .registerbtn {
-  background-color: #04AA6D;
-  color: white;
+  background-color: rgb(139, 100, 230);
+  /* color: white; */
   padding: 16px 20px;
   margin: 8px 0;
   border: none;

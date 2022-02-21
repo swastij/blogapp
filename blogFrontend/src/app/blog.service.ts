@@ -80,34 +80,18 @@ export class BlogService {
     createOptions.headers = createOptions.headers.set('Authorization', 'Bearer ' + this.parsedUser.jwt);
     return this.http.post<any>('http://localhost:1337/api/posts/', body, createOptions);
   }
-  async uploadImage(file: any, blog: any) {
-    // const uploadOptions = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'multipart/form-data; ',
-    //     'Authorization': 'Bearer '+this.parsedUser.jwt
-    //   })
-    // };
-    // (file);
-    // const formData= new FormData();
-    // formData.append('files', file, file.name);
-    // (formData);
-    //   // uploadOptions.headers = uploadOptions.headers.set('Authorization', 'Bearer '+this.parsedUser.jwt);
-    //   return this.http.post<any>('http://localhost:1337/api/upload',formData, uploadOptions);
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", 'Bearer '+this.parsedUser.jwt);
-
-    var formdata = new FormData();
-    formdata.append("files", file, file.name);
-
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: formdata,
+  uploadImage(file: File, blog: any) {
+    const uploadOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer '+this.parsedUser.jwt
+      })
     };
-
-    fetch("http://localhost:1337/api/upload", requestOptions)
-      .then(response => response.json())
-      .then(result => {
+    (file);
+    const formData= new FormData();
+    formData.append('files', file);
+      // uploadOptions.headers = uploadOptions.headers.set('Authorization', 'Bearer '+this.parsedUser.jwt);
+      return this.http.post<any>('http://localhost:1337/api/upload',formData, uploadOptions)
+      .subscribe((result)=>{
         const postBody = blog;
         postBody.image = result[0]?.id;
         postBody.author = this.parsedUser.user.id;
@@ -117,8 +101,7 @@ export class BlogService {
            console.log('after post', res)
            this.router.navigate(['/myblogs'])
         })
-      })
-      .catch(error => console.log('error', error));
+      });
   }
 
 //edit
@@ -128,33 +111,30 @@ editPost(body: any) {
   createOptions.headers = createOptions.headers.set('Authorization', 'Bearer ' + this.parsedUser.jwt);
   return this.http.put<any>(`http://localhost:1337/api/posts/${body.data.id}`, body, createOptions);
 }
-async editUploadImage(file: any, blog: any) {
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization", 'Bearer '+this.parsedUser.jwt);
 
-  var formdata = new FormData();
-  formdata.append("files", file, file.name);
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: formdata,
-  };
-
-  fetch("http://localhost:1337/api/upload", requestOptions)
-    .then(response => response.json())
-    .then(result => {
-      const postBody = blog;
-      postBody.image = result[0]?.id;
-      postBody.author = this.parsedUser.user.id;
-      this.editPost({
-        'data' : postBody
-      }).subscribe(res =>{
-         console.log('after post', res)
-         this.router.navigate(['/myblogs'])
-      })
+editUploadImage(file: any, blog: any) {
+  const uploadOptions = {
+    headers: new HttpHeaders({
+      'Authorization': 'Bearer '+this.parsedUser.jwt
     })
-    .catch(error => console.log('error', error));
+  };
+  (file);
+  const formData= new FormData();
+  formData.append('files', file);
+
+
+  this.http.post<any>('http://localhost:1337/api/upload',formData, uploadOptions)
+  .subscribe((result)=>{
+    const postBody = blog;
+    postBody.image = result[0]?.id;
+    postBody.author = this.parsedUser.user.id;
+    this.editPost({
+      'data' : postBody
+    }).subscribe(res =>{
+       console.log('after post', res)
+       this.router.navigate(['/myblogs'])
+    })
+  });
 }
 }
 

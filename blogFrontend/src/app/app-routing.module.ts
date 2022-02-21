@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './auth-guard.service';
 import { BlogCardComponent } from './blog-card/blog-card.component';
 import { CreateBlogComponent } from './create-blog/create-blog.component';
 import { EditBlogComponent } from './edit-blog/edit-blog.component';
@@ -14,11 +15,15 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'blog-card', component: BlogCardComponent},
-  {path:'myblogs', component: MyBlogsComponent},
-  {path: 'create', component: CreateBlogComponent},
-  {path: 'editblog/', component: EditBlogComponent},
-  {path: 'editblog/:id', component: EditBlogComponent},
+  {path:'myblogs',
+  component: MyBlogsComponent,
+  canActivate: [AuthGuardService]},
+  {path: 'create', component: CreateBlogComponent,
+  canActivate: [AuthGuardService]},
+  {path: 'editblog/', component: EditBlogComponent,
+  canActivate: [AuthGuardService]},
+  {path: 'editblog/:id', component: EditBlogComponent,
+  canActivate: [AuthGuardService]},
   {path: '**', component: PageNotFoundComponent},
 ];
 

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     password :new FormControl('', Validators.required)
   });
   constructor(private userService: UserService,
-    private router: Router) { }
+    private router: Router) {}
 
   ngOnInit(): void {
   }

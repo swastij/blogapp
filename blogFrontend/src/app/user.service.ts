@@ -7,7 +7,7 @@ import { catchError, retry } from 'rxjs/operators';
 })
 
 export class UserService {
-  
+  // loggedIn = false;
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -21,14 +21,9 @@ export class UserService {
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
-
-  // user =  {  username: "user5",
-  // email: "user5@strapi.io",
-  // password: "strapiPassword"};
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1MDgyOTAzLCJleHAiOjE2NDU2ODc3MDN9.hS1liQfKeMmVzbPt0aY60dI_UkKp_9FFDLnj8A9UbSQ'
     })
   };
 
@@ -40,16 +35,20 @@ export class UserService {
       catchError(this.handleError)
     );
   }
-  store(response: any){
-    (response);
-    response= JSON.stringify(response);
-    localStorage.setItem('user', response);
-  }
+  // store(response: any){
+  //   (response);
+  //   response= JSON.stringify(response);
+  //   localStorage.setItem('user', response);
+  //   this.loggedIn=true;
+  // }
   login(user : {identifier: string, password: string}){
     return this.http.post<any>('http://localhost:1337/api/auth/local',
      user, this.httpOptions)
     .pipe(
       catchError(this.handleError)
     );
+  }
+  loggedIn(): boolean{
+    return localStorage.getItem('user')?true:false;
   }
 }

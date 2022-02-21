@@ -45,7 +45,7 @@ export class EditBlogComponent implements OnInit {
       id: this.route.snapshot.params['id']
     }
     if(this.file!=this.blogDetail.file){
-    this.blogService.uploadImage(this.file, blog);
+    this.blogService.editUploadImage(this.file, blog);
     }
     else{
       this.blogService.editPost({data: blog}).subscribe(data=>console.log(data));

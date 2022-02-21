@@ -20,4 +20,6 @@ import { EditBlogComponent } from './edit-blog/edit-blog.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule{
+
+ }
