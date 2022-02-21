@@ -48,7 +48,8 @@ export class EditBlogComponent implements OnInit {
     this.blogService.editUploadImage(this.file, blog);
     }
     else{
-      this.blogService.editPost({data: blog}).subscribe(data=>console.log(data));
+      this.blogService.editPost({data: blog}).subscribe(data=>{console.log(data)
+      this.router.navigate(['/myblogs'])});
       console.log('reached')
     }
     

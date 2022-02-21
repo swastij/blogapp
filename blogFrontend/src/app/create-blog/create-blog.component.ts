@@ -26,6 +26,7 @@ export class CreateBlogComponent implements OnInit {
   handleCreate(){
     if(!this.blogData.valid){
       this.msg='Please enter valid values';
+      return;
     }
     else{
       this.msg='';
@@ -35,7 +36,10 @@ export class CreateBlogComponent implements OnInit {
       body: this.blogData.controls['body'].value,
       isPublished: this.blogData.controls['isPublished'].value,
     }
-    console.log(this.file);
+    if(!this.file){
+      this.msg='Please select a file';
+      return;
+    }
     this.blogService.uploadImage(this.file, blog);
     
   }

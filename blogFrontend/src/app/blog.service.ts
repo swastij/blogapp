@@ -32,16 +32,19 @@ export class BlogService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      // 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1MDgyOTAzLCJleHAiOjE2NDU2ODc3MDN9.hS1liQfKeMmVzbPt0aY60dI_UkKp_9FFDLnj8A9UbSQ'
     })
   };
 
 
   getAllPosts() {
-    return this.http.get<any>('http://localhost:1337/api/posts?filters[isPublished][$eq]=true&populate=*', this.httpOptions);
+    return this.http.get<any>('http://localhost:1337/api/posts?filters[isPublished][$eq]=true&populate=*', this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
   getPostById(id : number){
-    return this.http.get<any>(`http://localhost:1337/api/posts?filters[id][$eq]=${id}&populate=*`, this.httpOptions);
+    return this.http.get<any>(`http://localhost:1337/api/posts?filters[id][$eq]=${id}&populate=*`, this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
   getMyPosts() {
     let localStorageUser = localStorage.getItem('user');
@@ -49,7 +52,9 @@ export class BlogService {
       let parsedUser = JSON.parse(localStorageUser);
       if (parsedUser) {
         let userid = parsedUser?.user['id'];
-        return this.http.get<any>(`http://localhost:1337/api/posts?filters[author][id][$eq]=${userid}&populate=*`, this.httpOptions);
+        return this.http.get<any>(`http://localhost:1337/api/posts?filters[author][id][$eq]=${userid}&populate=*`, this.httpOptions).pipe(
+          catchError(this.handleError)
+        );
       }
       else {
         return new Observable<[]>();
@@ -63,7 +68,9 @@ export class BlogService {
   deletePost(id: number) {
     const deleteOptions = this.httpOptions;
     deleteOptions.headers = deleteOptions.headers.set('Authorization', 'Bearer ' + this.parsedUser.jwt);
-    return this.http.delete<any>(`http://localhost:1337/api/posts/${id}`, deleteOptions);
+    return this.http.delete<any>(`http://localhost:1337/api/posts/${id}`, deleteOptions).pipe(
+      catchError(this.handleError)
+    );
   }
   updatePost(body: any) {
     const post = {
@@ -72,13 +79,17 @@ export class BlogService {
     };
     const updateOptions = this.httpOptions;
     updateOptions.headers = updateOptions.headers.set('Authorization', 'Bearer ' + this.parsedUser.jwt);
-    return this.http.put<any>(`http://localhost:1337/api/posts/${body.data['id']}`, updateOptions);
+    return this.http.put<any>(`http://localhost:1337/api/posts/${body.data['id']}`, updateOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 
   createPost(body: any) {
     const createOptions = this.httpOptions;
     createOptions.headers = createOptions.headers.set('Authorization', 'Bearer ' + this.parsedUser.jwt);
-    return this.http.post<any>('http://localhost:1337/api/posts/', body, createOptions);
+    return this.http.post<any>('http://localhost:1337/api/posts/', body, createOptions).pipe(
+      catchError(this.handleError)
+    );
   }
   uploadImage(file: File, blog: any) {
     const uploadOptions = {
@@ -91,14 +102,15 @@ export class BlogService {
     formData.append('files', file);
       // uploadOptions.headers = uploadOptions.headers.set('Authorization', 'Bearer '+this.parsedUser.jwt);
       return this.http.post<any>('http://localhost:1337/api/upload',formData, uploadOptions)
-      .subscribe((result)=>{
+      .pipe(
+        catchError(this.handleError)
+      ).subscribe((result)=>{
         const postBody = blog;
         postBody.image = result[0]?.id;
         postBody.author = this.parsedUser.user.id;
         this.createPost({
           'data' : postBody
         }).subscribe(res =>{
-           console.log('after post', res)
            this.router.navigate(['/myblogs'])
         })
       });
@@ -109,7 +121,9 @@ editPost(body: any) {
   console.log(body);
   const createOptions = this.httpOptions;
   createOptions.headers = createOptions.headers.set('Authorization', 'Bearer ' + this.parsedUser.jwt);
-  return this.http.put<any>(`http://localhost:1337/api/posts/${body.data.id}`, body, createOptions);
+  return this.http.put<any>(`http://localhost:1337/api/posts/${body.data.id}`, body, createOptions).pipe(
+    catchError(this.handleError)
+  );
 }
 
 editUploadImage(file: any, blog: any) {

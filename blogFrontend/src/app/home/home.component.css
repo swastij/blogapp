@@ -12,6 +12,8 @@
     padding: 4px;
     display: flex;
     /* justify-content: space-around; */
-    grid-gap: 12px;
+    grid-gap: 36px;
     align-items: center;
+    margin: 20px;
+    flex-wrap: wrap;
 }

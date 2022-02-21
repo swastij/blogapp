@@ -35,12 +35,6 @@ export class UserService {
       catchError(this.handleError)
     );
   }
-  // store(response: any){
-  //   (response);
-  //   response= JSON.stringify(response);
-  //   localStorage.setItem('user', response);
-  //   this.loggedIn=true;
-  // }
   login(user : {identifier: string, password: string}){
     return this.http.post<any>('http://localhost:1337/api/auth/local',
      user, this.httpOptions)

@@ -1,6 +1,8 @@
 .card-container{
     padding: 8px;
     display: flex;
-    grid-gap: 12px;
+    grid-gap: 36px;
     align-items: center;
+    margin: 20px;
+    flex-wrap: wrap;
 }
